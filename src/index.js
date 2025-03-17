@@ -16,13 +16,20 @@ app.get("/products", function (req, res) {
 
 app.post("/products", function (req, res) {
   const { productName, quantity } = req.body;
+
+  if (!productName || !quantity) {
+    return res
+      .status(404)
+      .json({ message: "ProducName and quantity are required!" });
+  }
+
   const product = {
     id: uuid4(),
     productName,
     quantity,
   };
 
-  productsRepository.push(productName);
+  productsRepository.push(product);
 
   return res.status(201).json(product);
 });
