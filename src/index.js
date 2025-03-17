@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const { v4: uuid4 } = require("uuid");
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ app.get("/products", function (req, res) {
 app.post("/products", function (req, res) {
   const { productName, quantity } = req.body;
   const product = {
-    id: 1,
+    id: uuid4(),
     productName,
     quantity,
   };
