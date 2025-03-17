@@ -33,6 +33,22 @@ app.post("/products", function (req, res) {
 
   return res.status(201).json(product);
 });
+
+app.delete("/products/:id", function (req, res) {
+  const { id } = req.params;
+  const productIndex = productsRepository.findIndex(
+    (product) => product.id === id
+  );
+
+  if (productIndex < 0) {
+    return res.status(404).json({ message: "Product not found" });
+  }
+
+  productsRepository.splice(productIndex, 1);
+
+  return res.status(204).send();
+});
+
 app.listen(port, () => {
   console.log(`✅ API Running on port ${port}`);
 });
